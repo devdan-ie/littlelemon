@@ -9,12 +9,17 @@ import SwiftUI
 
 @main
 struct Little_LemonApp: App {
-    let persistenceController = PersistenceController.shared
-
+    let user = UserData()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            NavigationStack {
+                if user.isLoggedIn() {
+                    MainPage(user: user)
+                } else {
+                    OnboardingPage(user: user)
+                }
+            }
         }
     }
 }
